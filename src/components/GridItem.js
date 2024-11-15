@@ -36,8 +36,8 @@ const GridItem = ({ movie, prevImage }) => {
         image={imageSrc}
         alt={movie.name}
         sx={{
-          width: "100%", // Enforces consistent width
-          objectFit: "cover", // Maintains aspect ratio while cropping
+          width: "100%",
+          objectFit: "cover",
         }}
       />
       <CardContent sx={{ padding: 0 }}>

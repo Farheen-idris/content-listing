@@ -4,12 +4,12 @@ const BASE_API_URL = 'https://test.create.diagnal.com/data';
 
 const useFetchMovies = (searchQuery) => {
   const [movies, setMovies] = useState([]);
-  const [page, setPage] = useState(1);  // Start from page 1
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);  // To check if more pages are available
+  const [hasMore, setHasMore] = useState(true);
 
   const fetchMovies = async () => {
-    if (loading) return; // Prevent multiple fetches at once
+    if (loading) return;
     setLoading(true);
     try {
       const response = await fetch(`${BASE_API_URL}/page${page}.json`);
@@ -17,14 +17,12 @@ const useFetchMovies = (searchQuery) => {
       const fetchedMovies = data.page['content-items'].content;
 
       if (fetchedMovies.length > 0) {
-        // Append new movies to existing list
         setMovies((prev) => [...prev, ...fetchedMovies]);
-        setHasMore(true);  // More pages available
+        setHasMore(true); 
       } else {
-        setHasMore(false);  // No more data, stop loading
+        setHasMore(false);
       }
 
-      // Increment page after fetching
       setPage((prev) => prev + 1);
     } catch (error) {
       console.error('Failed to fetch movies:', error);
@@ -34,29 +32,26 @@ const useFetchMovies = (searchQuery) => {
   };
 
   useEffect(() => {
-    // Fetch movies when the page changes
-    if (page === 1) {  // Only fetch the first page initially
       fetchMovies();
-    }
   }, [page]);
 
   useEffect(() => {
     const handleScroll = () => {
       if (
-        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100 &&  // Scroll near the bottom
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100 &&
         hasMore && 
         !loading
       ) {
-        fetchMovies();  // Fetch the next page when scrolled to the bottom
+        fetchMovies();
       }
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll); // Cleanup listener on unmount
-  }, [hasMore, loading]);  // Run when loading or hasMore changes
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [hasMore, loading]);
 
   const filteredMovies = movies.filter((movie) =>
-    movie.name.toLowerCase().includes(searchQuery.toLowerCase())  // Filter movies based on search query
+    movie.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return { movies: filteredMovies, loading, fetchMovies };
