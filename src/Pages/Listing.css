@@ -1,0 +1,36 @@
+.container-custom {
+    max-width: 100%;
+    padding: 32px 0;
+}
+
+@media (min-width: 600px) {
+    .container-custom {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 900px) {
+    .container-custom {
+        max-width: 750px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container-custom {
+        max-width: 1130px;
+    }
+}
+
+@media (max-width: 572px) {
+    .MuiGrid2-root {
+        padding-right: 0 !important;
+    }
+
+    .MuiGrid2-item {
+        padding: 0 !important;
+    }
+}
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.css-1naaziy-MuiPaper-root-MuiCard-root {
+    box-shadow: none !important;
+}
