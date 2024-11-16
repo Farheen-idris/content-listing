@@ -1,28 +1,22 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
+import ImageNotSupportedIcon from "@mui/icons-material/ImageNotSupported";
+import './index.css';
+import noimage from "./noimage.png"
 
 const IMAGE_API_URL = "https://test.create.diagnal.com/images";
-const GridItem = ({ movie, prevImage }) => {
+const GridItem = ({ movie }) => {
   const [imageSrc, setImageSrc] = useState(
     `${IMAGE_API_URL}/${movie["poster-image"]}`
   );
   const imageUrl = `${IMAGE_API_URL}/${movie["poster-image"]}`;
 
   useEffect(() => {
-    if (!imageUrl.includes("posterthatismissing.jpg")) {
-      prevImage.current = imageUrl;
-      setImageSrc(imageUrl);
-    } else {
-      if (prevImage.current) {
-        setImageSrc(prevImage.current);
-      }
+    if (imageUrl.includes("posterthatismissing.jpg")) {
+        setImageSrc("");
     }
   }, [movie]);
 
-
-  const shortenTitle = (title) => {
-    return title.length > 15 ? title.slice(0, 10) + "..." : title;
-  };
   return (
     <Card
       sx={{
@@ -30,25 +24,25 @@ const GridItem = ({ movie, prevImage }) => {
         width: "100%",
       }}
     >
-      <CardMedia
-        component="img"
-        height="100%"
-        image={imageSrc}
-        alt={movie.name}
-        sx={{
-          width: "100%",
-          objectFit: "cover",
-        }}
-      />
+        <CardMedia
+          component="img"
+          height="auto"
+          image={imageSrc ? imageSrc : noimage}
+          alt={movie.name}
+          sx={{
+            width: "100%",
+            objectFit: "cover",
+            aspectRatio:"6/9"
+          }}
+          onError={() => setImageSrc("")} // Handle broken image fallback
+        />
       <CardContent sx={{ padding: 0 }}>
         <Typography
           color="#FFFFFF"
-          sx={{
-            fontSize: "20px",
-            marginTop: "10px",
-          }}
+          className="poster-typograpghy"
         >
-          {shortenTitle(movie.name)}
+          {movie.name}
+          {/* {shortenTitle(movie.name)} */}
         </Typography>
       </CardContent>
     </Card>

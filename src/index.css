@@ -6,11 +6,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+/* 
 body::-webkit-scrollbar {
   width: 0;
   display: none;
-}
+} */
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -18,10 +18,10 @@ code {
 
 html, body {
   margin: 0;
-  overflow: auto; /* Enable scrolling */
-  scrollbar-width: none;
+  overflow: hidden; /* Enable scrolling */
+  /* scrollbar-width: none;
   -ms-overflow-style: none;
   height: 100%;
-  -ms-overflow-style: none;
+  -ms-overflow-style: none; */
 
 }
